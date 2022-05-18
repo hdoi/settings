@@ -1,0 +1,40 @@
+function share_history {  # 以下の内容を関数として定義
+    history -a  # .bash_historyに前回コマンドを1行追記
+    history -c  # 端末ローカルの履歴を一旦消去
+    history -r  # .bash_historyから履歴を読み込み直す
+}
+PROMPT_COMMAND='share_history'  # 上記関数をプロンプト毎に自動実施
+
+function make_tar ()
+{
+  # tar zcvf $1.tar.gz $1
+  tar --use-compress-program=pigz -cvf ${1}.tar.gz ${1}
+}
+
+function disp_setting () {
+  DNUM=` tmux show-environment | grep DISP`
+  export $DNUM
+}
+
+function infinite_loop () {
+while :
+do
+    date
+    $*
+    sleep 300s
+done
+}
+
+function job_num () {
+  expr `qstat | wc -l  ` - 2
+}
+
+function qcd () {
+  # quedir=`qstat -f1 $1| grep PBS_O_WORKDIR| sed 's/.*,PBS_O_WORKDIR=//'| sed 's/,.*//'`
+  # echo "$quedir"
+  # cd $quedir
+  quedir=`squeue --job $1 -o %Z | tail -n1`
+  echo ${quedir}
+  cd ${quedir}
+}
+
