@@ -22,6 +22,7 @@ call dein#add('scrooloose/syntastic')
 call dein#add('tyru/open-browser.vim')
 call dein#add('kannokanno/previm')
 call dein#add('dense-analysis/ale')
+call dein#add('itchyny/lightline.vim')
 
 " color schemes
 call dein#add('altercation/vim-colors-solarized')
@@ -77,6 +78,7 @@ set tags=./tags,../tags/tags,../../tags,../../../tags
 
 "最初から画面を縦分割
 vsplit
+set laststatus=2
 
 " persistent undo
 set undodir=./.vimundo,~/.vimundo
